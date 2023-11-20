@@ -12,6 +12,8 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		5C3757902B0C1D8800FAEA2F /* CafFaceLiveness.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C37578F2B0C1D8800FAEA2F /* CafFaceLiveness.swift */; };
+		5C3757922B0C1DB100FAEA2F /* CafFaceLiveness.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C3757912B0C1DB100FAEA2F /* CafFaceLiveness.m */; };
 		7699B88040F8A987B510C191 /* libPods-cafbridge_faceliveness-cafbridge_facelivenessTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-cafbridge_faceliveness-cafbridge_facelivenessTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
@@ -40,6 +42,9 @@
 		3B4392A12AC88292D35C810B /* Pods-cafbridge_faceliveness.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cafbridge_faceliveness.debug.xcconfig"; path = "Target Support Files/Pods-cafbridge_faceliveness/Pods-cafbridge_faceliveness.debug.xcconfig"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-cafbridge_faceliveness.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cafbridge_faceliveness.release.xcconfig"; path = "Target Support Files/Pods-cafbridge_faceliveness/Pods-cafbridge_faceliveness.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-cafbridge_faceliveness-cafbridge_facelivenessTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cafbridge_faceliveness-cafbridge_facelivenessTests.debug.xcconfig"; path = "Target Support Files/Pods-cafbridge_faceliveness-cafbridge_facelivenessTests/Pods-cafbridge_faceliveness-cafbridge_facelivenessTests.debug.xcconfig"; sourceTree = "<group>"; };
+		5C37578E2B0C1D8800FAEA2F /* cafbridge_faceliveness-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "cafbridge_faceliveness-Bridging-Header.h"; sourceTree = "<group>"; };
+		5C37578F2B0C1D8800FAEA2F /* CafFaceLiveness.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafFaceLiveness.swift; sourceTree = "<group>"; };
+		5C3757912B0C1DB100FAEA2F /* CafFaceLiveness.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CafFaceLiveness.m; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-cafbridge_faceliveness.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-cafbridge_faceliveness.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = cafbridge_faceliveness/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-cafbridge_faceliveness-cafbridge_facelivenessTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cafbridge_faceliveness-cafbridge_facelivenessTests.release.xcconfig"; path = "Target Support Files/Pods-cafbridge_faceliveness-cafbridge_facelivenessTests/Pods-cafbridge_faceliveness-cafbridge_facelivenessTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -90,8 +95,11 @@
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
+				5C37578F2B0C1D8800FAEA2F /* CafFaceLiveness.swift */,
+				5C3757912B0C1DB100FAEA2F /* CafFaceLiveness.m */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				5C37578E2B0C1D8800FAEA2F /* cafbridge_faceliveness-Bridging-Header.h */,
 			);
 			name = cafbridge_faceliveness;
 			sourceTree = "<group>";
@@ -207,7 +215,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						LastSwiftMigration = 1120;
+						LastSwiftMigration = 1430;
 					};
 				};
 			};
@@ -412,7 +420,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5C3757902B0C1D8800FAEA2F /* CafFaceLiveness.swift in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
+				5C3757922B0C1DB100FAEA2F /* CafFaceLiveness.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -432,6 +442,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5B7EB9410499542E8C5724F5 /* Pods-cafbridge_faceliveness-cafbridge_facelivenessTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -459,6 +470,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 89C6BE57DB24E9ADA2F236DE /* Pods-cafbridge_faceliveness-cafbridge_facelivenessTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = cafbridge_facelivenessTests/Info.plist;
@@ -501,6 +513,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = cafbridge_faceliveness;
+				SWIFT_OBJC_BRIDGING_HEADER = "cafbridge_faceliveness-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -528,6 +541,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = cafbridge_faceliveness;
+				SWIFT_OBJC_BRIDGING_HEADER = "cafbridge_faceliveness-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
