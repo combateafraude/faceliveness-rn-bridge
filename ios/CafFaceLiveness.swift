@@ -41,14 +41,14 @@ class CafFaceLiveness: RCTEventEmitter, FaceLivenessDelegate {
     var configDictionary: [String: Any]? = nil
     var filter = Filter.lineDrawing;
     var cafStage = FaceLiveness.CAFStage.PROD
-    var setLoadingScreen:Bool = false;
-    
-    if let loadingScreen = configDictionary?["setLoadingScreen"] as? Bool {
-      setLoadingScreen = loadingScreen
-    }
+    var setLoadingScreen:Bool? = nil;
     
     if let data = config.data(using: .utf8) {
       configDictionary = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+    }
+    
+    if let loadingScreen = configDictionary?["setLoadingScreen"] as? Bool {
+      setLoadingScreen = loadingScreen
     }
     
     if let filterValue = configDictionary?["filter"] as? Int, let newFilter = Filter(rawValue: filterValue) {
@@ -62,11 +62,11 @@ class CafFaceLiveness: RCTEventEmitter, FaceLivenessDelegate {
     let faceLiveness = FaceLivenessSDK.Build()
         .setStage(stage: cafStage)
         .setFilter(filter: filter)
-        .setLoadingScreen(withLoading: setLoadingScreen)
+        .setLoadingScreen(withLoading: setLoadingScreen!)
         .setCredentials(mobileToken: token, personId: personId)
         .build()
         faceLiveness.delegate = self
-        
+
         DispatchQueue.main.async {
             guard let currentViewController = UIApplication.shared.keyWindow!.rootViewController else { return }
             faceLiveness.startSDK(viewController: currentViewController)
