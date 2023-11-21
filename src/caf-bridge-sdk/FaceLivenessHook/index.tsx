@@ -56,11 +56,11 @@ function FaceLivenessHook(token: string, config?: T.IFaceLivenessConfig): T.Face
     const eventListener = (event: T.FaceLivenessEvent, res?: T.FaceLivenessSDKResponseType) =>
       handleEvent(event, res);
 
-    CAF_FACELIVENESS_MODULE.addListener("FaceLiveness_Success", (event: any) => eventListener("FaceLiveness_Success", event));
-    CAF_FACELIVENESS_MODULE.addListener("FaceLiveness_Loading", (event: any) => eventListener("FaceLiveness_Loading", event));
-    CAF_FACELIVENESS_MODULE.addListener("FaceLiveness_Loaded", (event: any) => eventListener("FaceLiveness_Loaded", event));
-    CAF_FACELIVENESS_MODULE.addListener("FaceLiveness_Error", (event: any) => eventListener("FaceLiveness_Error", event));
-    CAF_FACELIVENESS_MODULE.addListener("FaceLiveness_Cancel", (event: any) => eventListener("FaceLiveness_Cancel", event));
+    CAF_FACELIVENESS_MODULE_EMITTER.addListener("FaceLiveness_Success", (event: any) => eventListener("FaceLiveness_Success", event));
+    CAF_FACELIVENESS_MODULE_EMITTER.addListener("FaceLiveness_Loading", (event: any) => eventListener("FaceLiveness_Loading", event));
+    CAF_FACELIVENESS_MODULE_EMITTER.addListener("FaceLiveness_Loaded", (event: any) => eventListener("FaceLiveness_Loaded", event));
+    CAF_FACELIVENESS_MODULE_EMITTER.addListener("FaceLiveness_Error", (event: any) => eventListener("FaceLiveness_Error", event));
+    CAF_FACELIVENESS_MODULE_EMITTER.addListener("FaceLiveness_Cancel", (event: any) => eventListener("FaceLiveness_Cancel", event));
 
     return () => {
       CAF_FACELIVENESS_MODULE_EMITTER.removeAllListeners("FaceLiveness_Success");
