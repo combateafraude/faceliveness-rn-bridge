@@ -41,8 +41,11 @@ class CafFaceLiveness: RCTEventEmitter, FaceLivenessDelegate {
     var configDictionary: [String: Any]? = nil
     var filter = Filter.lineDrawing;
     var cafStage = FaceLiveness.CAFStage.PROD
+    var setLoadingScreen:Bool = false;
     
-    NSLog(config)
+    if let loadingScreen = configDictionary?["setLoadingScreen"] as? Bool {
+      setLoadingScreen = loadingScreen
+    }
     
     if let data = config.data(using: .utf8) {
       configDictionary = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
@@ -59,6 +62,7 @@ class CafFaceLiveness: RCTEventEmitter, FaceLivenessDelegate {
     let faceLiveness = FaceLivenessSDK.Build()
         .setStage(stage: cafStage)
         .setFilter(filter: filter)
+        .setLoadingScreen(withLoading: setLoadingScreen)
         .setCredentials(mobileToken: token, personId: personId)
         .build()
         faceLiveness.delegate = self

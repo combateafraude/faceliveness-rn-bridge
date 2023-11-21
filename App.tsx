@@ -19,7 +19,7 @@ const App: React.FC<any> = () => {
     cafStage: FaceLivenessCAFStage.DEV,
     filter: FaceLivenessFilter.NATURAL,
     setEnableScreenshots: false,
-    setLoadingScreen: false
+    setLoadingScreen: true
   }
 
   // FaceLiveness
