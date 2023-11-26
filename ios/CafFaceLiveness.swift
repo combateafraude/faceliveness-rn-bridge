@@ -12,6 +12,9 @@ import FaceLiveness
 @objc(CafFaceLiveness)
 class CafFaceLiveness: RCTEventEmitter, FaceLivenessDelegate {
   static let shared = CafFaceLiveness()
+  var filter = Filter.lineDrawing;
+  var cafStage = FaceLiveness.CAFStage.PROD
+  var setLoadingScreen:Bool? = nil;
   
   @objc
   override static func requiresMainQueueSetup() -> Bool {
@@ -39,54 +42,63 @@ class CafFaceLiveness: RCTEventEmitter, FaceLivenessDelegate {
   @objc(faceLiveness:personId:config:)
   func faceLiveness(token: String, personId: String, config: String) {
     var configDictionary: [String: Any]? = nil
-    var filter = Filter.lineDrawing;
-    var cafStage = FaceLiveness.CAFStage.PROD
-    var setLoadingScreen:Bool? = nil;
     
     if let data = config.data(using: .utf8) {
       configDictionary = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
     }
     
-    if let loadingScreen = configDictionary?["setLoadingScreen"] as? Bool {
-      setLoadingScreen = loadingScreen
+    
+    if CheckInternetConnection.shared.monitor.currentPath.status == .satisfied {
+      if let loadingScreen = configDictionary?["setLoadingScreen"] as? Bool {
+        setLoadingScreen = loadingScreen
+      }
+      
+      if let filterValue = configDictionary?["filter"] as? Int, let newFilter = Filter(rawValue: filterValue) {
+        filter = newFilter
+      }
+      
+      if let cafStageValue = configDictionary?["cafStage"] as? Int, let newCafStage = FaceLiveness.CAFStage(rawValue: cafStageValue) {
+        cafStage = newCafStage
+      }
+      authenticate(token: token, personId: personId)
+    } else {
+      let response : NSMutableDictionary = [:]
+      response["type"] = "Error"
+      response["message"] = "Error: Dispositivo não esta conectado a internet"
+      sendEvent(withName: "FaceLiveness_Error", body: response)
     }
     
-    if let filterValue = configDictionary?["filter"] as? Int, let newFilter = Filter(rawValue: filterValue) {
-      filter = newFilter
-    }
-    
-    if let cafStageValue = configDictionary?["cafStage"] as? Int, let newCafStage = FaceLiveness.CAFStage(rawValue: cafStageValue) {
-      cafStage = newCafStage
-    }
-    
+  }
+  
+  func authenticate(token: String, personId: String) {
     let faceLiveness = FaceLivenessSDK.Build()
-        .setStage(stage: cafStage)
-        .setFilter(filter: filter)
-        .setLoadingScreen(withLoading: setLoadingScreen!)
-        .setCredentials(mobileToken: token, personId: personId)
-        .build()
-        faceLiveness.delegate = self
-
-        DispatchQueue.main.async {
-            guard let currentViewController = UIApplication.shared.keyWindow!.rootViewController else { return }
-            faceLiveness.startSDK(viewController: currentViewController)
-        }
+      .setStage(stage: cafStage)
+      .setFilter(filter: filter)
+      .setLoadingScreen(withLoading: setLoadingScreen!)
+      .setCredentials(mobileToken: token, personId: personId)
+      .build()
+    faceLiveness.delegate = self
+    
+    DispatchQueue.main.async {
+      guard let currentViewController = UIApplication.shared.keyWindow!.rootViewController else { return }
+      faceLiveness.startSDK(viewController: currentViewController)
     }
-
-
+  }
+  
+  
   // FaceLiveness
   
   func didFinishLiveness(with faceLivenessResult: FaceLiveness.FaceLivenessResult) {
     let response : NSMutableDictionary = [:]
-        response["data"] = faceLivenessResult.signedResponse
-        sendEvent(withName: "FaceLiveness_Success", body: response)
+    response["data"] = faceLivenessResult.signedResponse
+    sendEvent(withName: "FaceLiveness_Success", body: response)
   }
   
   func didFinishWithFail(with faceLivenessFailResult: FaceLiveness.FaceLivenessFailResult) {
     let response : NSMutableDictionary = [:]
-        response["message"] = faceLivenessFailResult.description
-        response["type"] = String(describing: faceLivenessFailResult.failType)
-        sendEvent(withName: "FaceLiveness_Error", body: response)
+    response["message"] = faceLivenessFailResult.description
+    response["type"] = String(describing: faceLivenessFailResult.failType)
+    sendEvent(withName: "FaceLiveness_Error", body: response)
   }
   
   func didFinishWithCancelled(with faceLivenessResult: FaceLiveness.FaceLivenessResult) {
@@ -95,9 +107,9 @@ class CafFaceLiveness: RCTEventEmitter, FaceLivenessDelegate {
   
   func didFinishWithError(with faceLivenessErrorResult: FaceLiveness.FaceLivenessErrorResult) {
     let response : NSMutableDictionary = [:]
-        response["message"] = faceLivenessErrorResult.description
-        response["type"] = String(describing: faceLivenessErrorResult.errorType)
-        sendEvent(withName: "FaceLiveness_Error", body: response)
+    response["message"] = faceLivenessErrorResult.description
+    response["type"] = String(describing: faceLivenessErrorResult.errorType)
+    sendEvent(withName: "FaceLiveness_Error", body: response)
   }
   
   func openLoadingScreenStartSDK() {
