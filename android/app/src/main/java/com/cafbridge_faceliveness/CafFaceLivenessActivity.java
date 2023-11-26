@@ -23,6 +23,10 @@ public class CafFaceLivenessActivity extends ReactActivity {
     private String customConfig;
     private Intent intent;
 
+    private FaceLivenessConfig config;
+
+    private FaceLiveness faceLiveness;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,22 +37,39 @@ public class CafFaceLivenessActivity extends ReactActivity {
         customConfig = intent.getStringExtra("config");
 
         try {
-            this.faceLiveness();
+            config = new FaceLivenessConfig(customConfig);
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
+
+        this.faceLiveness();
     }
 
-    private void faceLiveness() throws JSONException {
-        FaceLivenessConfig config = new FaceLivenessConfig(customConfig);
+    private void faceLiveness() {
 
-        FaceLiveness faceLiveness = new FaceLiveness.Builder(token)
-                .setStage(config.cafStage)
-                .setFilter(config.filter)
-                .setEnableScreenshots(config.setEnableScreenshots)
-                .setLoadingScreen(config.setLoadingScreen)
-                .build();
 
+        if (InternetConnectionChecker.isInternetConnected(getApplicationContext())) {
+            WritableMap writableMap = new WritableNativeMap();
+            writableMap.putString("type", "Error");
+            writableMap.putString("message", "Error: Dispositivo não esta conectado a internet");
+
+            getReactInstanceManager().getCurrentReactContext()
+                    .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
+                    .emit("FaceLiveness_Error", writableMap);
+            finish();
+        } else {
+            faceLiveness = new FaceLiveness.Builder(token)
+                    .setStage(config.cafStage)
+                    .setFilter(config.filter)
+                    .setEnableScreenshots(config.setEnableScreenshots)
+                    .setLoadingScreen(config.setLoadingScreen)
+                    .build();
+
+            authenticate();
+        }
+    }
+
+    private void authenticate() {
         faceLiveness.startSDK(this, personId, new VerifyLivenessListener() {
             @Override
             public void onSuccess(FaceLivenessResult faceLivenessResult) {
@@ -64,7 +85,6 @@ public class CafFaceLivenessActivity extends ReactActivity {
             @Override
             public void onError(FaceLivenessResult faceLivenessResult) {
                 String message = "Error: " + faceLivenessResult.getErrorMessage();
-                ;
                 String type = "Error";
                 WritableMap writableMap = new WritableNativeMap();
                 SDKFailure sdkFailure = faceLivenessResult.getSdkFailure();
@@ -114,6 +134,4 @@ public class CafFaceLivenessActivity extends ReactActivity {
 
         });
     }
-
-
 }
