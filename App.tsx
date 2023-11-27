@@ -11,9 +11,9 @@ const App: React.FC<any> = () => {
   };
 
   //Insert your generated JWT here. Check documentation here: https://docs.caf.io/sdks/access-token
-  const mobileToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiI2Mjg2YmU5Mzg2NDJmZDAwMDk4NWE1OWUiLCJuYW1lIjoiSm9obiBEb2UiLCJpYXQiOjE1MTYyMzkwMjJ9.muHfkGn9ToDyt9cT_z6vHPNLH0GfDNJJ2WtnnsrqFpU";
+  const mobileToken = "";
   //Insert user's CPF to run FaceAuthenticator SDK
-  const CPF = "64312743509"
+  const CPF = ""
 
   const FaceLivenessConfig: IFaceLivenessConfig = {
     cafStage: FaceLivenessCAFStage.DEV,
