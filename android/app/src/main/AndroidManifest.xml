@@ -35,6 +35,6 @@
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
       </activity>
-      <activity android:name=".CafFaceLivenessActivity" android:label="CafFaceLivenessActivity"></activity>
+      <activity android:name=".CafFaceLiveness.CafFaceLivenessActivity" android:label="CafFaceLivenessActivity"></activity>
     </application>
 </manifest>

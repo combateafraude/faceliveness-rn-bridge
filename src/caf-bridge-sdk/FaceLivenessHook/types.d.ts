@@ -33,8 +33,8 @@ export enum FaceLivenessFilter {
 }
 
 export interface IFaceLivenessConfig {
-    cafStage: CAFStage;
-    filter: Filter;
-    setEnableScreenshots: boolean;
-    setLoadingScreen: boolean;
+    cafStage?: CAFStage;
+    filter?: Filter;
+    setEnableScreenshots?: boolean;
+    setLoadingScreen?: boolean;
 }

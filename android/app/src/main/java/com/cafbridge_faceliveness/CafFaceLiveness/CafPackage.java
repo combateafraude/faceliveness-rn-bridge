@@ -1,4 +1,4 @@
-package com.cafbridge_faceliveness;
+package com.cafbridge_faceliveness.CafFaceLiveness;
 
 import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.NativeModule;

@@ -2,6 +2,7 @@ package com.cafbridge_faceliveness;
 
 import android.app.Application;
 
+import com.cafbridge_faceliveness.CafFaceLiveness.CafPackage;
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactNativeHost;

@@ -2,27 +2,24 @@ import {NativeEventEmitter, NativeModules, Platform} from 'react-native';
 import { useEffect, useState } from "react";
 import * as T from './types.d';
 
-
-const isAndroid = Platform.OS === "android";
-
 export const CAF_FACELIVENESS_MODULE =  NativeModules.CafFaceLiveness;
 export const CAF_FACELIVENESS_MODULE_EMITTER = new NativeEventEmitter(CAF_FACELIVENESS_MODULE);
 
-const defaultConfig: T.IFaceLivenessConfig = {
-  cafStage: T.FaceLivenessCAFStage.PROD,
-  filter: T.FaceLivenessFilter.LINE_DRAWING,
-  setEnableScreenshots: false,
-  setLoadingScreen: false
-}
+const isAndroid = Platform.OS == "android";
+
 
 function formatedConfig(config?: T.IFaceLivenessConfig): string {
-  const responseConfig = config || defaultConfig;
+  const responseConfig = config;
 
-  return JSON.stringify({
-    ...responseConfig,
-    filter: isAndroid ? T.FaceLivenessFilter[responseConfig.filter]: responseConfig.filter,
-    cafStage: isAndroid ? T.FaceLivenessCAFStage[responseConfig.cafStage] : responseConfig.cafStage
-  })
+  if (responseConfig?.cafStage) {
+    responseConfig.cafStage = isAndroid ? T.FaceLivenessCAFStage[responseConfig.cafStage] : responseConfig.cafStage
+  }
+
+  if (responseConfig?.filter) {
+    responseConfig.cafStage = isAndroid ? T.FaceLivenessCAFStage[responseConfig?.filter] : responseConfig?.filter
+  }
+
+  return JSON.stringify(responseConfig)
 }
 
 function FaceLivenessHook(token: string, config?: T.IFaceLivenessConfig): T.FaceLivenessHookReturnType {

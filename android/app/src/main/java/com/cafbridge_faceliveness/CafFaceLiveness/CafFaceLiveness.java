@@ -1,4 +1,4 @@
-package com.cafbridge_faceliveness;
+package com.cafbridge_faceliveness.CafFaceLiveness;
 
 import android.content.Intent;
 
